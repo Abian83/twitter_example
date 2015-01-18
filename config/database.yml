@@ -49,7 +49,8 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: twitter_example_production
+  database: d4u3iosbdhmhhr
   pool: 5
-  username: twitter_example
-  password:
+  username: jukaonjutmsduy
+  password: XSr7oJvXM2T_c3UK8_Tu51MFv3
+  port: 5432

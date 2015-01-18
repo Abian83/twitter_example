@@ -34,4 +34,5 @@ TwitterExample::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  ENV["REDISTOGO_URL"] = 'redis://redistogo:3288d06533f8d731c58fdb10f288455a@mummichog.redistogo.com:10515'
 end
