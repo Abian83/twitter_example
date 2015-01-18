@@ -5,9 +5,9 @@
 :verbose: true
 :concurrency: 3
 # Set timeout to 8 on Heroku, longer if you manage your own systems.
-:timeout: 30
-:pidfile: /vagrant/sidekiq.pid
-:logfile: /vagrant/sidekiq.log
+:timeout: 
+:pidfile: sidekiq.pid
+:logfile: sidekiq.log
 :queues:
 
   - dummy
