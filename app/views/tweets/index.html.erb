@@ -1,0 +1,33 @@
+
+<%= form_tag(search_tweets_path, method: "get") do %>
+  <%= label_tag(:hashtag, "Search for:") %>
+  <%= text_field_tag(:hashtag) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+<h1>Last tweets found</h1>
+
+<table>
+  <tr>
+    <th>Message</th>
+    <th>Tweet</th>
+    <th>Author</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @tweets.each do |tweet| %>
+  <tr>
+    <td><%= tweet.message %></td>
+    <td><%= tweet.tweet_id %></td>
+    <td><%= tweet.author %></td>
+    <td><%= link_to 'Show', tweet %></td>
+    <td><%= link_to 'Edit', edit_tweet_path(tweet) %></td>
+    <td><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+

@@ -7,6 +7,8 @@ gem 'rails', '3.2.13'
 
 gem 'pg'
 
+#Twitter REST API
+gem 'twitter'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -22,8 +24,17 @@ end
 
 gem 'jquery-rails'
 
-gem 'pry'
 
+
+gem 'sidekiq'
+gem 'sidekiq-limit_fetch'
+gem 'sidekiq-status'
+gem 'sidekiq-unique-jobs'
+#mock_redis
+
+group :development, :test do
+	gem 'pry'
+end
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

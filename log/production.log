@@ -1,0 +1,22 @@
+Compiled jquery.js  (30ms)  (pid 24223)
+Compiled jquery_ujs.js  (0ms)  (pid 24223)
+Compiled tweets.js  (204ms)  (pid 24223)
+Compiled application.js  (341ms)  (pid 24223)
+Warning. Error encountered while saving cache /vagrant/twitter_example/tmp/cache/sass/1e7bba1ae9c97a16b7ebdfb0762b0acd69940194/scaffolds.css.scssc: can't dump anonymous class #<Class:0x00000002c0fa60>
+
+Compiled scaffolds.css  (12ms)  (pid 24223)
+Warning. Error encountered while saving cache /vagrant/twitter_example/tmp/cache/sass/1e7bba1ae9c97a16b7ebdfb0762b0acd69940194/tweets.css.scssc: can't dump anonymous class #<Class:0x00000002c0fa60>
+
+Compiled tweets.css  (3ms)  (pid 24223)
+Compiled application.css  (77ms)  (pid 24223)
+Compiled jquery.js  (30ms)  (pid 24223)
+Compiled jquery_ujs.js  (0ms)  (pid 24223)
+Compiled tweets.js  (91ms)  (pid 24223)
+Compiled application.js  (231ms)  (pid 24223)
+Warning. Error encountered while saving cache /vagrant/twitter_example/tmp/cache/sass/1e7bba1ae9c97a16b7ebdfb0762b0acd69940194/scaffolds.css.scssc: can't dump anonymous class #<Class:0x00000002670320>
+
+Compiled scaffolds.css  (10ms)  (pid 24223)
+Warning. Error encountered while saving cache /vagrant/twitter_example/tmp/cache/sass/1e7bba1ae9c97a16b7ebdfb0762b0acd69940194/tweets.css.scssc: can't dump anonymous class #<Class:0x00000002670320>
+
+Compiled tweets.css  (3ms)  (pid 24223)
+Compiled application.css  (74ms)  (pid 24223)
