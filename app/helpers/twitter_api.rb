@@ -1,10 +1,5 @@
 module Twitter_Api
 
-#load 'app/helpers/twitter_api.rb'
-# => 
-
-
-
   class TwitterSearch
     attr_accessor :oauth,
                   :session
@@ -22,10 +17,10 @@ module Twitter_Api
 
     def sign_in
       @session = Twitter::REST::Client.new do |config|
-        config.consumer_key        = self.oauth[:CONSUMER_KEY]
-        config.consumer_secret     = self.oauth[:CONSUMER_SECRET]
-        config.access_token        = self.oauth[:ACCESS_TOKEN]
-        config.access_token_secret = self.oauth[:ACCESS_TOKEN_SECRET]
+        config.consumer_key        = @oauth[:CONSUMER_KEY]
+        config.consumer_secret     = @oauth[:CONSUMER_SECRET]
+        config.access_token        = @oauth[:ACCESS_TOKEN]
+        config.access_token_secret = @oauth[:ACCESS_TOKEN_SECRET]
       end
     end
 
@@ -35,23 +30,10 @@ module Twitter_Api
       #self.session.search(tag, args).take(3).collect do |tweet|
       #  puts "#{tweet.user.screen_name}: #{tweet.text}"
       #end
-      self.session.search(tag, args).take(3)
+      self.session.search(tag, args).take(1)
     end
-
-    #t = client.search("#ronaldo", :lang => "es" , :until => "2015-01-09").take(3)
-
-
 
 
   end
 
-
-
-
 end
-#Worker en Redis que se ejecute cada hora y busque los tweets de cada hashtag.
-
-#Mongo guardar los hashtag de tareas a crear y los tweets previamente leidos
-# [mongoid_tweets] - [response_new_tweets] = real_new_tweets.
-
-#Con esto crear la tarea en redbooth

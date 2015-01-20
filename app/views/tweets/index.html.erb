@@ -1,7 +1,18 @@
-
+<%if session[:code]%>
+  You have been authorized wit the code <%=session[:code]%>
+<%else%>
+  You have not been authorized yet.
+<%end%>
+<br />
+<br />
+<h2>Add task to:</h2>
 <%= form_tag(search_tweets_path, method: "get") do %>
-  <%= label_tag(:hashtag, "Search for:") %>
+  <%= label_tag(:hashtag, "Twitter handler:") %>
   <%= text_field_tag(:hashtag) %>
+  <%=select_tag "Projects" ,options_for_select(@projects), :id => "project_id"%>
+  <%=select_tag "Task List" , options_for_select(@task_lists),:id => "task_list_id"%>
+  <%= label_tag(:name, "Task Name:") %>
+  <%= text_field_tag(:name) %>
   <%= submit_tag("Search") %>
 <% end %>
 

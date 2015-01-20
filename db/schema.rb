@@ -11,11 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150117222801) do
+ActiveRecord::Schema.define(:version => 20150118121707) do
+
+  create_table "tasks", :force => true do |t|
+    t.string   "hashtag"
+    t.integer  "project_id"
+    t.integer  "task_list_id"
+    t.integer  "task_id"
+    t.string   "description"
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "tweets", :force => true do |t|
     t.string   "message"
-    t.integer  "tweet_id"
+    t.text     "tweet_id"
     t.string   "author"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

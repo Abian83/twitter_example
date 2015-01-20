@@ -1,4 +1,11 @@
+
 TwitterExample::Application.routes.draw do
+
+  require 'sidekiq/web'
+  require 'sidekiq/api'
+  require 'sidekiq-status/web'
+
+  resources :tasks
 
 
   # The priority is based upon order of creation:
@@ -18,6 +25,28 @@ TwitterExample::Application.routes.draw do
       get 'search'
     end
   end
+
+  mount Sidekiq::Web => '/monitoring'
+  
+  #API
+  namespace :api do
+    namespace :v1 do
+      resources :tasks do
+        collection do
+          match 'handler'
+        end
+      end
+    end
+  end
+
+  resources :oauth do
+            collection do
+          match 'callback'
+        end
+        #match ':controller(/:action(/:id))(.:format)'
+
+  end
+
 
   # Sample resource route with options:
   #   resources :products do

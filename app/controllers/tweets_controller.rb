@@ -1,9 +1,30 @@
 class TweetsController < ApplicationController
   include Twitter_Api
+  include RedisHandlers
+  include RedboothHelper
+  require 'rest_client'
+
+
   # GET /tweets
   # GET /tweets.json
   def index
+
     @tweets = Tweet.limit(10)
+
+    if params[:code]
+      session[:code] = params[:code]
+    end
+    #Get access_token
+    if session[:access_token].nil? || params[:code]
+      authorize_redbooth
+    end
+
+    args = {:access_token => session[:access_token]}
+    response   = get_redbooth_projects (args)
+    
+    @projects = response.map{|x| [x["name"],x["id"]]}
+    response = get_redbooth_task_lists (args)
+    @task_lists = response.map{|x| [x["name"],x["id"]]}
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,7 +36,22 @@ class TweetsController < ApplicationController
   # GET /search
   # GET /search.json
   def search
-    Workers::FindTweets.perform_async params[:hashtag] unless params[:hashtag].blank?
+    binding.pry
+    redishelper = RedisHandlerQueue.new
+    #Push handler in redis
+    @errors = []
+    args = {:name         => params[:name],
+            :access_token => session[:access_token],
+            :refresh_token=> session[:refresh_token],
+            :project_id   => params[:project_id],
+            :task_list_id => params[:task_list_id],
+            :handler      => params[:hashtag],}
+
+    if redishelper.enqueu_handler (args)
+      Workers::FindTweets.perform_async
+    else
+      @errors << "Something was wrong trying to enqueu handler in Redis"
+    end
     redirect_to action: :index
   end 
 
