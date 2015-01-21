@@ -1,13 +1,10 @@
 module RedboothHelper
 	include RedisHandlers
 
-	CLIENT_ID     = "3be91f77979d438886038bdf0aec18725508ba5493486c6b0cbcd7f92cd91372"
-	CLIENT_SECRET = "3b0d221425033e2e9e70c042bf278f91c6169412518543ec83d7bfde35e821c7"
-	REDIRECT_URI  = "http://localhost:3030/oauth/callback"
-	SITE          = "https://redbooth.com/oauth2/authorize"
-	AUTHORIZE_URL = "/oauth2/authorize"
-	TOKEN_URL	  = "/oauth2/token"
-	POST_TASK_URI = "https://redbooth.com/api/3/tasks"
+	SITE              = "https://redbooth.com/oauth2/authorize"
+	AUTHORIZE_URL     = "/oauth2/authorize"
+	TOKEN_URL	      = "/oauth2/token"
+	POST_TASK_URI     = "https://redbooth.com/api/3/tasks"
 	GET_PROJECTS_URI  = "https://redbooth.com/api/3/projects"
 	GET_TASK_LIST_URI = "https://redbooth.com/api/3/task_lists"
 	REFRESH_TOKEN_URL = "https://redbooth.com/oauth2/token"
@@ -30,8 +27,7 @@ module RedboothHelper
 					old_access_token = session[:access_token]
 					session[:access_token]  = data["access_token"]
 					session[:refresh_token] = data["refresh_token"]
-					binding.pry
-					#TODO: refresh access_token in redis!!
+					#refresh access_token in redis
 					redishelper = RedisHandlerQueue.new
 					redishelper.update_tokens_in_redis(old_access_token,session[:access_token],session[:refresh_token])
 				end

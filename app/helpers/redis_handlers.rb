@@ -35,7 +35,6 @@ module RedisHandlers
 
 		def update_tokens_in_redis old_access_token ,new_access_token, new_refresh_token
 			get_handlers.each_with_index do |hash,idx|
-				binding.pry
 				hash = eval(hash)
 				if hash[:access_token] == old_access_token
 					hash[:access_token]  = new_access_token
