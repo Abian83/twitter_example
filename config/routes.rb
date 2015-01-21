@@ -23,6 +23,7 @@ TwitterExample::Application.routes.draw do
   resources :tweets do 
     collection do
       get 'search'
+      post 'remove_all_jobs'
     end
   end
 
@@ -40,7 +41,7 @@ TwitterExample::Application.routes.draw do
   end
 
   resources :oauth do
-            collection do
+        collection do
           match 'callback'
         end
         #match ':controller(/:action(/:id))(.:format)'
@@ -83,7 +84,8 @@ TwitterExample::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => "tweets#index"
+  #root :to => "tweets#index"
+  root :to => "oauth#index"
 
   # See how all your routes lay out with "rake routes"
 

@@ -2,6 +2,7 @@
   You have been authorized wit the code <%=session[:code]%>
 <%else%>
   You have not been authorized yet.
+  <%= link_to @authorize_link %>
 <%end%>
 <br />
 <br />
@@ -9,13 +10,26 @@
 <%= form_tag(search_tweets_path, method: "get") do %>
   <%= label_tag(:hashtag, "Twitter handler:") %>
   <%= text_field_tag(:hashtag) %>
-  <%=select_tag "Projects" ,options_for_select(@projects), :id => "project_id"%>
-  <%=select_tag "Task List" , options_for_select(@task_lists),:id => "task_list_id"%>
+  <%if @projects.nil?
+    @projects = [["Test Project" , "1352964"]]
+  end%>
+  <%if @task_lists.nil?
+    @task_lists = [["Task List" , "2754253"]]
+  end%>
+  <%=select_tag "project_id" ,options_for_select(@projects)%>
+  <%=select_tag "task_list_id" , options_for_select(@task_lists)%>
   <%= label_tag(:name, "Task Name:") %>
   <%= text_field_tag(:name) %>
   <%= submit_tag("Search") %>
 <% end %>
 
+
+<% if @handlers %>
+  <p>Handlers working : <%=@handlers.count %><%= button_to "Delete all jobs", action: "remove_all_jobs" %></p>
+<%else%>
+  No handlers in Redis yet.
+<%end%>
+<br />
 <h1>Last tweets found</h1>
 
 <table>

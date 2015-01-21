@@ -13,6 +13,7 @@ gem 'sidekiq'
 gem 'sidekiq-limit_fetch'
 gem 'sidekiq-status'
 gem 'sidekiq-unique-jobs'
+gem 'sidekiq-cron', '~> 0.2.0'
 #mock_redis
 
 #Sinatra to sidekiq monitor

@@ -18,29 +18,10 @@ module Workers
 		end
 	end
 
-  #
-  # Dummy worker, to perform progress/start/stop tests
-  # Not used by the application, could be safely removed anytime
-  #
-	class DummyWorker < BaseSidekiqWorker
-		sidekiq_options queue: :dummy
-
-		def perform( seconds)
-			logline "START"
-			total seconds
-			(0..seconds).each do |sec|
-				sleep 1
-				logline seconds, "Waiting [#{sec}/#{seconds}]"
-				at(sec, "#{sec} second passed, #{seconds-sec} to go")
-			end
-			at(seconds, "#DONE. #{seconds} seconds passed.")
-			logline "DONE"
-		end
-	end
-
 	#
-	# Dummy worker, to perform progress/start/stop tests
-	# Not used by the application, could be safely removed anytime
+	# 
+	# This Job is executed like a crontask and when is launched manually
+	# see config/schedule.yml for cron information.
 	#
 	class FindTweets < BaseSidekiqWorker
 		sidekiq_options queue: :monitor, unique: :all
@@ -52,33 +33,31 @@ module Workers
 
 			redishelper.get_handlers.each do |handler|
 				hash = eval(handler)
-							binding.pry
 				#Find tweets of each handler
 				new_tweets = ts.search_by_hashtag(hash[:handler])
 				new_tweets.each do |tweet|
-					binding.pry
 					#Save only new tweets
 					if Tweet.find(:all,:conditions => ["tweet_id=?",tweet.id.to_s]).empty?
 						logline "Added new handler #{handler}" , tweet.text
 						#Save tweet and create new task related
 						save_tweet tweet
-						binding.pry
-						args = {:name => hash[:name], :project_id => hash[:project_id],
+						args = {:name => hash[:name] + " | " + Time.now.to_s, :project_id => hash[:project_id],
 							 :task_list_id => hash[:task_list_id],:access_token=>hash[:access_token],
 							 :description =>"New task from handler #{hash[:handler]} refs to tweet #{tweet.text}"}
 						response = create_redbooth_task (args)
+
 						#TODO:parse response to get the code response!!
-						if response == 200
+						if response.code == 201
 							logline "New RedBooth task" , "Handler #{hash[:handler]}"
 						else
+							#Try to authorize again if expired
+							authorize_redbooth
 							logline "FAILED" , "Responde Status #{response}"
 						end
 				
 					end
 				end
 			end
-			#Job executed each 15min or when manual launched
-			self.class.perform_in(15.minutes)
 			logline "DONE"
 		end
 

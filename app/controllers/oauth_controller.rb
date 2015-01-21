@@ -4,7 +4,9 @@ class OauthController < ApplicationController
 	require 'json'
 	include RedboothHelper
 
-
+	def index
+		@authorize_link =  get_redirect_link_redbooth
+	end
 
 	def authorize
 		client = OAuth2::Client.new(@client_id, @client_secret, :site => @site)
@@ -13,10 +15,10 @@ class OauthController < ApplicationController
 	end
 
 
-  def callback
-  	session[:code] = params[:code]
-  	redirect_to :controller => 'tweets', :action => 'index', :code => session[:code]
-  end
+	def callback
+		session[:code] = params[:code]
+		redirect_to :controller => 'tweets', :action => 'index', :code => session[:code]
+	end
 
 
 end
