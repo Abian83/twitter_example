@@ -5,5 +5,5 @@ if Rails.env == "development"
 else
 	CLIENT_ID     = "35ebb1495c2e5f0c5fc614f2adb6764ebd2c2cca853dc07b25b34f67f38e69c9"
 	CLIENT_SECRET = "ff33e757473922906348783c169180b67fb45316e19a0880d457e15b86ddd22d"
-	REDIRECT_URI  = "https://limitless-spire-2545.herokuapp.com/callback"	
+	REDIRECT_URI  = "https://limitless-spire-2545.herokuapp.com/oauth/callback"	
 end
