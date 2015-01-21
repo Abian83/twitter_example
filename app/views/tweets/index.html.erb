@@ -1,5 +1,5 @@
 <%if session[:code]%>
-  You have been authorized wit the code <%=session[:code]%>
+  authorized
 <%else%>
   You have not been authorized yet.
   <%= link_to @authorize_link %>
@@ -25,12 +25,10 @@
 
 
 <% if @handlers %>
-  <p>Handlers working : <%=@handlers.count %><%= button_to "Delete all jobs", action: "remove_all_jobs" %></p>
-<%else%>
-  No handlers in Redis yet.
+  <p>Jobs working : <%=@handlers.count %><%= button_to "Delete all jobs", action: "remove_all_jobs" %></p>
 <%end%>
 <br />
-<h1>Last tweets found</h1>
+<h2>Last tweets found</h2>
 
 <table>
   <tr>

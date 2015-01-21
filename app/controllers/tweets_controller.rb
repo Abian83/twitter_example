@@ -36,7 +36,6 @@ class TweetsController < ApplicationController
     end
 
 
-
     if @no_authorized
       redirect_to :controller => 'oauth', :action => 'index' and return
     else
@@ -73,9 +72,11 @@ class TweetsController < ApplicationController
     redirect_to action: :index
   end 
 
+  # Cleanup redis queue
   def remove_all_jobs
     redishelper = RedisHandlerQueue.new
     redishelper.remove_all
+    @tweets = Tweet.limit(50)
     render :index
   end
 

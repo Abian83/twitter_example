@@ -4,7 +4,6 @@
 ---
 :verbose: true
 :concurrency: 3
-# Set timeout to 8 on Heroku, longer if you manage your own systems.
 :timeout: 30
 :pidfile: sidekiq.pid
 :logfile: sidekiq.log
